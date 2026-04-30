@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="logooceanica.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu | Oceánica Club</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #0d1f3c;
+      --navy-light: #1a3460;
+      --navy-mid: #152848;
+      --white: #ffffff;
+      --gold: #c9a84c;
+      --gold-light: #e8d5a3;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(13,31,60,0.95);
+      backdrop-filter: blur(4px);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .nav-logo-circle img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .nav-logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--gold);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 6px;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      transition: all 0.3s;
+      display: block;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .nav-lang {
+      display: flex;
+      gap: 8px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.7);
+      padding: 4px 10px;
+      border-radius: 3px;
+      font-size: 10px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .lang-btn.active,
+    .lang-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--navy);
+    }
+
+    .menu-hero {
+  position: relative;
+  padding: 170px 48px 90px;
+  text-align: center;
+  overflow: hidden;
+  background-image: url('bannerheromenu.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.menu-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(13,31,60,0.88),
+    rgba(13,31,60,0.72),
+    rgba(13,31,60,0.92)
+  );
+  z-index: 1;
+}
+
+.menu-hero > * {
+  position: relative;
+  z-index: 2;
+}
+
+    .menu-hero .section-label {
+      font-size: 10px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .menu-hero .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 300;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .menu-hero .section-subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    .menu-hero .section-label {
+  position: relative;
+  z-index: 2;
+}
+
+.menu-hero .section-title {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+
+.menu-hero .section-subtitle {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  text-shadow: 0 4px 18px rgba(0,0,0,0.2);
+}
+
+.section-line {
+  position: relative;
+  z-index: 2;
+}
+
+    .section-line {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 28px auto 0;
+    }
+
+    #menu-page {
+      background: var(--navy-mid);
+      padding: 80px 48px 100px;
+    }
+
+    .menu-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap;
+    }
+
+    .menu-tab {
+      padding: 14px 28px;
+      background: none;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.3s;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+
+    .menu-tab.active,
+    .menu-tab:hover {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    .menu-panel {
+      display: none;
+    }
+
+    .menu-panel.active {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 22px;
+    }
+
+    .menu-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 35px rgba(0,0,0,0.28);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .menu-item-image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #0b1324;
+    }
+
+    .menu-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+
+    .menu-item:hover .menu-item-image img {
+      transform: scale(1.05);
+    }
+
+    .menu-item-content {
+      padding: 22px 22px 24px;
+    }
+
+    .menu-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .menu-item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .menu-item-price {
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .menu-item-desc {
+      font-size: 11px;
+      color: rgba(255,255,255,0.46);
+      line-height: 1.7;
+      letter-spacing: 0.4px;
+    }
+
+    footer {
+      background: #080f1e;
+      padding: 64px 48px 32px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand .nav-logo-text {
+      font-size: 22px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+      max-width: 260px;
+    }
+
+    .footer-col h4 {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer-col ul li a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      overflow: hidden;
+      opacity: 0.85;
+    }
+
+    .social-link:hover {
+      opacity: 1;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    .social-link img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    [data-lang] { display: none; }
+    [data-lang="en"] { display: block; }
+    span[data-lang] { display: none; }
+    span[data-lang="en"] { display: inline; }
+
+    @media (max-width: 1024px) {
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 16px 20px;
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .nav-logo {
+        order: 1;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .nav-logo-text {
+        font-size: 15px;
+        letter-spacing: 2px;
+      }
+
+      .nav-lang {
+        order: 2;
+        display: flex;
+        gap: 8px;
+        margin-left: auto;
+        margin-right: 12px;
+      }
+
+      .hamburger {
+        order: 3;
+        display: flex;
+        flex-shrink: 0;
+      }
+
+      .nav-links {
+        order: 4;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(13,31,60,0.98);
+        backdrop-filter: blur(10px);
+        padding: 20px 0;
+        display: none;
+        align-items: center;
+        gap: 20px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .menu-hero {
+  padding: 140px 20px 70px;
+  background-position: center center;
+}
+
+      #menu-page {
+        padding: 60px 20px 80px;
+      }
+
+      .menu-panel.active {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .menu-item {
+        border-radius: 16px;
+      }
+
+      .menu-item-content {
+        padding: 14px 12px 16px;
+      }
+
+      .menu-item-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        margin-bottom: 8px;
+      }
+
+      .menu-item-name {
+        font-size: 18px;
+      }
+
+      .menu-item-price {
+        font-size: 12px;
+      }
+
+      .menu-item-desc {
+        font-size: 10px;
+        line-height: 1.5;
+      }
+
+      .menu-tab {
+        padding: 12px 16px;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .menu-panel.active {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .menu-item-name {
+        font-size: 16px;
+      }
+
+      .menu-item-price {
+        font-size: 11px;
+      }
+
+      .menu-item-desc {
+        font-size: 9px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+      @media (max-width: 768px) {
+  .menu-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    border-bottom: none;
+    margin-bottom: 28px;
+  }
+
+  .menu-tab {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 14px 10px;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .menu-tab.active,
+  .menu-tab:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
+
+  #tab-cachimbas.menu-panel.active {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  #tab-cachimbas .menu-item {
+    width: 100%;
+  }
+
+  #tab-cachimbas .menu-item-content {
+    padding: 18px 16px;
+  }
+
+  #tab-cachimbas .menu-item-name {
+    font-size: 22px;
+  }
+
+  #tab-cachimbas .menu-item-desc {
+    font-size: 11px;
+    line-height: 1.7;
+  }
+}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <div class="nav-logo-circle">
+        <img src="logooceanica.png" alt="Oceánica Club Logo">
+      </div>
+      <span class="nav-logo-text">Oceánica</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+      <li><a href="event.html"><span data-lang="en">Events</span><span data-lang="es">Eventos</span></a></li>
+      <li><a href="menu.html" class="active"><span data-lang="en">Menu</span><span data-lang="es">Menú</span></a></li>
+      <li><a href="index.html#gallery"><span data-lang="en">Gallery</span><span data-lang="es">Galería</span></a></li>
+      <li><a href="index.html#reservations"><span data-lang="en">Reserve</span><span data-lang="es">Reservar</span></a></li>
+    </ul>
+
+    <button class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-lang">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
+  </nav>
+
+  <section class="menu-hero">
+    <p class="section-label">Menu</p>
+    <h1 class="section-title">
+      <span data-lang="en">Cocktails, Drinks & Shisha</span>
+      <span data-lang="es">Cócteles, Bebidas & Cachimbas</span>
+    </h1>
+    <p class="section-subtitle">
+      <span data-lang="en">Explore signature mixes, classic favorites, premium spirits, refreshing mocktails and an elevated shisha experience.</span>
+      <span data-lang="es">Explora mezclas exclusivas, clásicos favoritos, bebidas premium, mocktails refrescantes y una experiencia shisha elevada.</span>
+    </p>
+    <div class="section-line"></div>
+  </section>
+
+  <section id="menu-page">
+  <div class="menu-tabs">
+    <button class="menu-tab active" onclick="showTab('cocktails', this)">
+      <span data-lang="en">Cocktails</span>
+      <span data-lang="es">Cócteles</span>
+    </button>
+    <button class="menu-tab" onclick="showTab('signature', this)">
+      <span data-lang="en">Signature</span>
+      <span data-lang="es">Especiales</span>
+    </button>
+    <button class="menu-tab" onclick="showTab('nonalc', this)">
+      <span data-lang="en">Non-Alcoholic</span>
+      <span data-lang="es">Sin Alcohol</span>
+    </button>
+    <button class="menu-tab" onclick="showTab('cachimbas', this)">
+  <span data-lang="en">Shisha</span>
+  <span data-lang="es">Cachimbas</span>
+</button>
+  </div>
+
+  <div class="menu-panel active" id="tab-cocktails">
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="pina-colada.webp" alt="Piña Colada">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Piña Colada</span>
+          <span class="menu-item-price">€9</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">White rum, coconut cream and pineapple juice.</span>
+          <span data-lang="es">Ron blanco, crema de coco y zumo de piña.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="moscow-mule.webp" alt="Moscow Mule">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Moscow Mule</span>
+          <span class="menu-item-price">€9</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">Vodka, ginger beer and lime juice.</span>
+          <span data-lang="es">Vodka, ginger beer y zumo de lima.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="espresso-martini.webp" alt="Espresso Martini">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Espresso Martini</span>
+          <span class="menu-item-price">€10</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">Vodka, coffee liqueur, espresso and sugar.</span>
+          <span data-lang="es">Vodka, licor de café, espresso y azúcar.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="aperol.webp" alt="Aperol">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Aperol</span>
+          <span class="menu-item-price">€7</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">Aperol, prosecco and soda.</span>
+          <span data-lang="es">Aperol, prosecco y soda.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="mojito.webp" alt="Mojito">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Mojito</span>
+          <span class="menu-item-price">€9</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">White rum, lime juice, sugar, mint leaves and soda.</span>
+          <span data-lang="es">Ron blanco, zumo de lima, azúcar, hojas de menta y soda.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="margarita.webp" alt="Margarita">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Margarita</span>
+          <span class="menu-item-price">€9</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">Tequila, triple sec and lime juice.</span>
+          <span data-lang="es">Tequila, triple sec y zumo de lima.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="negroni.webp" alt="Negroni">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Negroni</span>
+          <span class="menu-item-price">€9</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">Gin, red vermouth and Campari.</span>
+          <span data-lang="es">Ginebra, vermut rojo y Campari.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="long-island-iced-tea.webp" alt="Long Island Iced Tea">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Long Island Iced Tea</span>
+          <span class="menu-item-price">€10</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">White rum, vodka, tequila, gin, triple sec, lime juice and cola.</span>
+          <span data-lang="es">Ron blanco, vodka, tequila, ginebra, triple seco, zumo de lima y refresco de cola.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="daiquiri-de-fresa.webp" alt="Daiquiri de Fresa">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Daiquiri de Fresa</span>
+          <span class="menu-item-price">€9</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">White rum, lime, sugar and strawberries.</span>
+          <span data-lang="es">Ron blanco, lima, azúcar y fresas.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="caipirina.webp" alt="Caipiriña">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Caipiriña</span>
+          <span class="menu-item-price">€9</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">Cachaça, lime and brown sugar.</span>
+          <span data-lang="es">Casacha, lima y azucar moreno.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-panel" id="tab-signature">
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="oceanic-blue.webp" alt="Oceanic Blue">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Oceanic Blue</span>
+          <span class="menu-item-price">€9</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">Vodka, blue tropic and lemonade.</span>
+          <span data-lang="es">Vodka, bluet tropic y limonada.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="porn-star-martini.webp" alt="Porn Star Martini">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Porn Star Martini</span>
+          <span class="menu-item-price">€10</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">Vodka, passion fruit liqueur, passion fruit purée, lime juice, vanilla syrup and prosecco.</span>
+          <span data-lang="es">Vodka, licor de maracuyá, puré de maracuyá, zumo de lima, sirope de vainilla y prosecco.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="sex-on-the-beach.webp" alt="Sex on the Beach">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Sex on the Beach</span>
+          <span class="menu-item-price">€9</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">Vodka, peach liqueur, cranberry juice and orange juice.</span>
+          <span data-lang="es">Vodka, licor de melocotón, zumo de arándanos y zumo de naranja.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-panel" id="tab-nonalc">
+    <div class="menu-item">
+      <div class="menu-item-image">
+        <img src="san-francisco.webp" alt="San Francisco">
+      </div>
+      <div class="menu-item-content">
+        <div class="menu-item-header">
+          <span class="menu-item-name">San Francisco</span>
+          <span class="menu-item-price">€7</span>
+        </div>
+        <p class="menu-item-desc">
+          <span data-lang="en">Peach juice, pineapple, orange and grenadine.</span>
+          <span data-lang="es">Zumo de melocotón, piña, naranja y granadina.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="menu-panel" id="tab-cachimbas">
+  <div class="menu-item">
+    <div class="menu-item-content">
+      <div class="menu-item-header">
+        <span class="menu-item-name">Adalya</span>
+        <span class="menu-item-price">€20</span>
+      </div>
+      <p class="menu-item-desc">
+        + Moon Deam — Vainilla, Chicle, Canela y Menta<br>
+        + Blue Yellow — Melón y Arándanos<br>
+        + Skyfall — Melocotón, Sandía, Melón y Hielo<br>
+        + Hawaii — Piña, Mango y Menta<br>
+        + L Kill — Melocotón, Mango, Menta y Hielo
+      </p>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="menu-item-content">
+      <div class="menu-item-header">
+        <span class="menu-item-name">Al-Waha</span>
+        <span class="menu-item-price">€20</span>
+      </div>
+      <p class="menu-item-desc">
+        + Big Boy — Sandía y Menta<br>
+        + Blue Lion — Arándanos y Sandía
+      </p>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="menu-item-content">
+      <div class="menu-item-header">
+        <span class="menu-item-name">Serbetli</span>
+        <span class="menu-item-price">€20</span>
+      </div>
+      <p class="menu-item-desc">
+        + Istanbul Nights — Frambuesa, Arándanos y Fresa<br>
+        + Hate 69 — Mezcla de frutas heladas<br>
+        + Grapic — Manzana verde helada
+      </p>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="menu-item-content">
+      <div class="menu-item-header">
+        <span class="menu-item-name">Revoshi</span>
+        <span class="menu-item-price">€20</span>
+      </div>
+      <p class="menu-item-desc">
+        + Skimo Lemon — Limón
+      </p>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="menu-item-content">
+      <div class="menu-item-header">
+        <span class="menu-item-name">Kartel</span>
+        <span class="menu-item-price">€20</span>
+      </div>
+      <p class="menu-item-desc">
+        + Sheba Sexy — Mango refrescante y Fruta de la pasión helada<br>
+        + Panilla de Culpable — Pera y Limón<br>
+        + Krazee Kombo — Fresa, frambuesa y Helado de Melocotón<br>
+        + Capo — Vainilla cremosa
+      </p>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="menu-item-content">
+      <div class="menu-item-header">
+        <span class="menu-item-name">Privilege</span>
+        <span class="menu-item-price">€20</span>
+      </div>
+      <p class="menu-item-desc">
+        + Play — Sandía Helada<br>
+        + Fight — Menta intensa<br>
+        + Kiss — Fruta de la pasión y Menta
+      </p>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="menu-item-content">
+      <div class="menu-item-header">
+        <span class="menu-item-name">Hookain</span>
+        <span class="menu-item-price">€20</span>
+      </div>
+      <p class="menu-item-desc">
+        + Cheri Zkittlez — Cereza, Fruta de Dragón y Menta<br>
+        + Kaffa Yayo — Coco<br>
+        + Cotton Candy Cream — Algodón de Azúcar
+      </p>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="menu-item-content">
+      <div class="menu-item-header">
+        <span class="menu-item-name">Nameless</span>
+        <span class="menu-item-price">€20</span>
+      </div>
+      <p class="menu-item-desc">
+        + Black Nana — Uva<br>
+        + Winter is Coming — Fruta de dragón y Hielo dulce<br>
+        + Pablo — Arándanos, Lima y Hielo
+      </p>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <div class="menu-item-content">
+      <div class="menu-item-header">
+        <span class="menu-item-name">Anda</span>
+        <span class="menu-item-price">€20</span>
+      </div>
+      <p class="menu-item-desc">
+        + Anda temptation — Helado de frambuesa, Lima y Chocolate Blanco<br>
+        + Tiki Taka — Zumo de Mango, fruta de la pasión y Piña<br>
+        + Red Green — Refresco de fresa y Kiwi
+      </p>
+    </div>
+  </div>
+</div>
+</section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo-text">Oceánica Club</span>
+        <p><span data-lang="en">A premium cocktail bar and events venue. Where every night becomes a story worth telling.</span><span data-lang="es">Un bar de cócteles premium y espacio de eventos. Donde cada noche se convierte en una historia que vale la pena contar.</span></p>
+      </div>
+
+      <div class="footer-col">
+        <h4><span data-lang="en">Navigate</span><span data-lang="es">Navegar</span></h4>
+        <ul>
+          <li><a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+          <li><a href="index.html#events"><span data-lang="en">Events</span><span data-lang="es">Eventos</span></a></li>
+          <li><a href="menu.html"><span data-lang="en">Menu</span><span data-lang="es">Menú</span></a></li>
+          <li><a href="index.html#gallery"><span data-lang="en">Gallery</span><span data-lang="es">Galería</span></a></li>
+          <li><a href="index.html#reservations"><span data-lang="en">Reserve</span><span data-lang="es">Reservar</span></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4><span data-lang="en">Hours</span><span data-lang="es">Horario</span></h4>
+        <ul>
+          <li><span data-lang="en">Thu – Sun</span><span data-lang="es">Jue – Dom</span></li>
+          <li>21:00 – 06:00</li>
+          <li><span data-lang="en">Mon–Wed: Closed</span><span data-lang="es">Lun–Mié: Cerrado</span></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/oceanicaclub_pm" target="_blank">Instagram</a></li>
+          <li><a href="https://wa.me/34680207924" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Oceánica Club · oceanica.bar</p>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = 'en';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.style.display = el.dataset.lang === lang ? (el.tagName === 'SPAN' ? 'inline' : 'block') : 'none';
+      });
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+      });
+    }
+
+    function toggleMenu() {
+      const menu = document.querySelector('.nav-links');
+      const burger = document.querySelector('.hamburger');
+      menu.classList.toggle('active');
+      burger.classList.toggle('active');
+    }
+
+    setLang('en');
+
+    function showTab(tab, btn) {
+      document.querySelectorAll('.menu-panel').forEach(panel => panel.classList.remove('active'));
+      document.querySelectorAll('.menu-tab').forEach(tabBtn => tabBtn.classList.remove('active'));
+      document.getElementById('tab-' + tab).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('active');
+        document.querySelector('.hamburger').classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

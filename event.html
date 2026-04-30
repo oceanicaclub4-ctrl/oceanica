@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="logooceanica.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events | Oceánica Club</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #0d1f3c;
+      --navy-light: #1a3460;
+      --navy-mid: #152848;
+      --white: #ffffff;
+      --gold: #c9a84c;
+      --gold-light: #e8d5a3;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(13,31,60,0.95);
+      backdrop-filter: blur(4px);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .nav-logo-circle img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .nav-logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--gold); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 6px;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      transition: all 0.3s;
+      display: block;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .nav-lang {
+      display: flex;
+      gap: 8px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.7);
+      padding: 4px 10px;
+      border-radius: 3px;
+      font-size: 10px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .lang-btn.active,
+    .lang-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--navy);
+    }
+
+    .events-hero {
+      position: relative;
+      min-height: 74vh;
+      padding: 170px 48px 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background-image: url('events-hero.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .events-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(13,31,60,0.82),
+        rgba(13,31,60,0.65),
+        rgba(13,31,60,0.96)
+      );
+      z-index: 1;
+    }
+
+    .events-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 6vw, 76px);
+      font-weight: 300;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.9;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .section-line {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 30px auto 0;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 14px 36px;
+      border: none;
+      border-radius: 2px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      padding: 13px 36px;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 2px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 100px 48px;
+    }
+
+    .wave-divider {
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      opacity: 0.3;
+      margin: 0 48px;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .event-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy-mid);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 24px;
+      transition: all 0.4s ease;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+    }
+
+    .event-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    .event-image {
+      position: relative;
+      width: 100%;
+      height: 270px;
+      overflow: hidden;
+      background: var(--navy-light);
+    }
+
+    .event-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .event-card:hover .event-image img {
+      transform: scale(1.06);
+    }
+
+    .event-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,31,60,0.78), rgba(13,31,60,0.08));
+    }
+
+    .event-badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 2;
+      background: rgba(201,168,76,0.95);
+      color: var(--navy);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      border-radius: 14px;
+    }
+
+    .event-content {
+      padding: 28px 24px 26px;
+    }
+
+    .event-day {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+
+    .event-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 400;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .event-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+      margin-bottom: 22px;
+    }
+
+    .event-link {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .premium-block {
+      background: var(--navy-mid);
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 56px;
+    }
+
+    .feature-row.reverse {
+      direction: rtl;
+    }
+
+    .feature-row.reverse > * {
+      direction: ltr;
+    }
+
+    .feature-image {
+      border-radius: 28px;
+      overflow: hidden;
+      min-height: 460px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+    }
+
+    .feature-image img {
+      width: 100%;
+      height: 100%;
+      min-height: 460px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .feature-image:hover img {
+      transform: scale(1.04);
+    }
+
+    .feature-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 300;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+
+    .feature-content p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.58);
+      line-height: 1.9;
+      margin-bottom: 28px;
+      max-width: 560px;
+    }
+
+    .feature-points {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .feature-point {
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .feature-point strong {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .reservation-section {
+      background: var(--navy-mid);
+    }
+
+    .reservation-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-top: 50px;
+    }
+
+    .reservation-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 300;
+      margin-bottom: 24px;
+    }
+
+    .reservation-info p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .info-list { list-style: none; }
+
+    .info-list li {
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      flex-wrap: wrap;
+    }
+
+    .info-list li span:first-child {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 1px;
+      min-width: 90px;
+      text-transform: uppercase;
+    }
+
+    .reservation-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      padding: 14px 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.3s;
+      appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group select option {
+      background: var(--navy-mid);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    footer {
+      background: #080f1e;
+      padding: 64px 48px 32px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand .nav-logo-text {
+      font-size: 22px;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+      max-width: 260px;
+    }
+
+    .footer-col h4 {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer-col ul li a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+    }
+
+    .footer-col ul li a:hover { color: var(--white); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+    }
+
+    [data-lang] { display: none; }
+    [data-lang="en"] { display: block; }
+    span[data-lang] { display: none; }
+    span[data-lang="en"] { display: inline; }
+
+    @media (max-width: 1024px) {
+      .feature-row {
+        gap: 40px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 16px 20px;
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .nav-logo {
+        order: 1;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .nav-logo-text {
+        font-size: 15px;
+        letter-spacing: 2px;
+      }
+
+      .nav-lang {
+        order: 2;
+        display: flex;
+        gap: 8px;
+        margin-left: auto;
+        margin-right: 12px;
+      }
+
+      .hamburger {
+        order: 3;
+        display: flex;
+        flex-shrink: 0;
+      }
+
+      .nav-links {
+        order: 4;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(13,31,60,0.98);
+        backdrop-filter: blur(10px);
+        padding: 20px 0;
+        display: none;
+        align-items: center;
+        gap: 20px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+      }
+
+      .nav-links.active { display: flex; }
+
+      .events-hero {
+        min-height: 68vh;
+        padding: 145px 20px 70px;
+        background-position: center;
+      }
+
+      section {
+        padding: 72px 20px;
+      }
+
+      .wave-divider {
+        margin: 0 20px;
+      }
+
+      .events-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-top: 38px;
+      }
+
+      .event-image {
+        height: 230px;
+      }
+
+      .event-content {
+        padding: 22px 18px 24px;
+      }
+
+      .event-name {
+        font-size: 26px;
+      }
+
+      .feature-row,
+      .feature-row.reverse {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        direction: ltr;
+        margin-top: 40px;
+      }
+
+      .feature-image {
+        min-height: auto;
+        border-radius: 22px;
+      }
+
+      .feature-image img {
+        min-height: auto;
+        height: auto;
+      }
+
+      .feature-content p {
+        font-size: 12px;
+      }
+
+      .reservation-wrap {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-label {
+        letter-spacing: 4px;
+      }
+
+      .events-hero {
+        min-height: 62vh;
+      }
+
+      .btn-primary,
+      .btn-outline {
+        width: 100%;
+        text-align: center;
+      }
+
+      .event-image {
+        height: 210px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <div class="nav-logo-circle">
+        <img src="logooceanica.png" alt="Oceánica Club Logo">
+      </div>
+      <span class="nav-logo-text">Oceánica</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+      <li><a href="event.html" class="active"><span data-lang="en">Events</span><span data-lang="es">Eventos</span></a></li>
+      <li><a href="menu.html"><span data-lang="en">Menu</span><span data-lang="es">Menú</span></a></li>
+      <li><a href="index.html#gallery"><span data-lang="en">Gallery</span><span data-lang="es">Galería</span></a></li>
+      <li><a href="#reservations"><span data-lang="en">Reserve</span><span data-lang="es">Reservar</span></a></li>
+    </ul>
+
+    <button class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-lang">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
+  </nav>
+
+  <section class="events-hero">
+    <div class="events-hero-content">
+      <p class="section-label">
+        <span data-lang="en">Oceánica Nights</span>
+        <span data-lang="es">Noches Oceánica</span>
+      </p>
+
+      <h1 class="section-title">
+        <span data-lang="en">Events & Private Celebrations</span>
+        <span data-lang="es">Eventos & Celebraciones Privadas</span>
+      </h1>
+
+      <p class="section-subtitle">
+        <span data-lang="en">Discover our weekly summer program, private event experiences and elegant dinner party reservations at Oceánica Club.</span>
+        <span data-lang="es">Descubre nuestro programa semanal de verano, experiencias privadas y reservas para cenas especiales en Oceánica Club.</span>
+      </p>
+
+      <div class="section-line"></div>
+    </div>
+  </section>
+
+  <section id="weekly-events">
+    <p class="section-label">
+      <span data-lang="en">Weekly Program</span>
+      <span data-lang="es">Programa Semanal</span>
+    </p>
+
+    <h2 class="section-title">
+      <span data-lang="en">Summer Events 2026</span>
+      <span data-lang="es">Eventos Verano 2026</span>
+    </h2>
+
+    <p class="section-subtitle" style="margin:0; max-width:620px;">
+      <span data-lang="en">Every week brings a new reason to celebrate — music, cocktails, dancing and unforgettable late-night energy.</span>
+      <span data-lang="es">Cada semana trae una nueva razón para celebrar — música, cócteles, baile y energía nocturna inolvidable.</span>
+    </p>
+
+    <div class="events-grid">
+      <div class="event-card">
+        <div class="event-image">
+          <img src="poster-miercoles.webp" alt="Bachata Nights">
+          <span class="event-badge">WED</span>
+        </div>
+        <div class="event-content">
+          <div class="event-day">
+            <span data-lang="en">Every Wednesday</span>
+            <span data-lang="es">Cada Miércoles</span>
+          </div>
+          <h3 class="event-name">
+            <span data-lang="en">Bachata Nights</span>
+            <span data-lang="es">Noches de Bachata</span>
+          </h3>
+          <p class="event-desc">
+            <span data-lang="en">Bachata nights with DJ Paraguas Azul every Wednesday all Summer 2026.</span>
+            <span data-lang="es">Noches de bachata con DJ Paraguas Azul cada miércoles durante todo el verano 2026.</span>
+          </p>
+          <a href="#reservations" class="event-link">Reserve →</a>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-image">
+          <img src="poster-jueves.webp" alt="Bingo Cocktail Night">
+          <span class="event-badge">THU</span>
+        </div>
+        <div class="event-content">
+          <div class="event-day">
+            <span data-lang="en">Every Thursday</span>
+            <span data-lang="es">Cada Jueves</span>
+          </div>
+          <h3 class="event-name">
+            <span data-lang="en">Bingo & Cocktail Night</span>
+            <span data-lang="es">Bingo & Noche de Cócteles</span>
+          </h3>
+          <p class="event-desc">
+            <span data-lang="en">Bingo with Lolita Versache, special cocktails and guest DJs every Thursday.</span>
+            <span data-lang="es">Bingo con Lolita Versache, cócteles especiales y DJs invitados cada jueves.</span>
+          </p>
+          <a href="#reservations" class="event-link">Reserve →</a>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-image">
+          <img src="poster-viernes.webp" alt="Themed Parties">
+          <span class="event-badge">FRI</span>
+        </div>
+        <div class="event-content">
+          <div class="event-day">
+            <span data-lang="en">Every Friday</span>
+            <span data-lang="es">Cada Viernes</span>
+          </div>
+          <h3 class="event-name">
+            <span data-lang="en">Themed Parties</span>
+            <span data-lang="es">Fiestas Temáticas</span>
+          </h3>
+          <p class="event-desc">
+            <span data-lang="en">Themed parties with DJ Relo every Friday all Summer 2026.</span>
+            <span data-lang="es">Fiestas temáticas con DJ Relo cada viernes durante todo el verano 2026.</span>
+          </p>
+          <a href="#reservations" class="event-link">Reserve →</a>
+        </div>
+      </div>
+
+      <div class="event-card">
+  <div class="event-image">
+    <img src="poster-sabados.webp" alt="Saturday Night">
+    <span class="event-badge">SAT</span>
+  </div>
+
+  <div class="event-content">
+    <div class="event-day">
+      <span data-lang="en">Every Saturday</span>
+      <span data-lang="es">Cada Sábado</span>
+    </div>
+
+    <h3 class="event-name">
+      <span data-lang="en">Saturday Night Session</span>
+      <span data-lang="es">Saturday Night Session</span>
+    </h3>
+
+    <p class="event-desc">
+      <span data-lang="en">High-energy Saturday nights with guest DJs and premium vibes all summer long.</span>
+      <span data-lang="es">Sábados con DJs invitados y ambiente premium durante todo el verano.</span>
+    </p>
+
+    <a href="#reservations" class="event-link">Reserve →</a>
+  </div>
+</div>
+
+<div class="event-card">
+  <div class="event-image">
+    <img src="poster-domingos.webp" alt="Sunday Social">
+    <span class="event-badge">SUN</span>
+  </div>
+
+  <div class="event-content">
+    <div class="event-day">
+      <span data-lang="en">Every Sunday</span>
+      <span data-lang="es">Cada Domingo</span>
+    </div>
+
+    <h3 class="event-name">
+      <span data-lang="en">Sunday Social</span>
+      <span data-lang="es">Social de Domingo</span>
+    </h3>
+
+    <p class="event-desc">
+      <span data-lang="en">Relaxed Sunday vibes with cocktails, music and a social atmosphere.</span>
+      <span data-lang="es">Ambiente relajado los domingos con cócteles, música y buena energía.</span>
+    </p>
+
+    <a href="#reservations" class="event-link">Reserve →</a>
+  </div>
+</div>
+    </div>
+  </section>
+
+  <div class="wave-divider"></div>
+
+  <section class="premium-block" id="private-events">
+    <div class="feature-row">
+      <div class="feature-image">
+        <img src="private-event.webp" alt="Private Event">
+      </div>
+
+      <div class="feature-content">
+        <p class="section-label">
+          <span data-lang="en">Private Experience</span>
+          <span data-lang="es">Experiencia Privada</span>
+        </p>
+
+        <h2>
+          <span data-lang="en">Private Events</span>
+          <span data-lang="es">Eventos Privados</span>
+        </h2>
+
+        <p>
+          <span data-lang="en">Reserve Oceánica Club for birthdays, VIP nights, brand events or private celebrations with a premium cocktail atmosphere and exclusive service.</span>
+          <span data-lang="es">Reserva Oceánica Club para cumpleaños, noches VIP, eventos de marca o celebraciones privadas con un ambiente premium y servicio exclusivo.</span>
+        </p>
+
+        <div class="feature-points">
+          <div class="feature-point">
+            <strong>VIP Setup</strong>
+            <span data-lang="en">Personalized tables, bottle service and premium hosting.</span>
+            <span data-lang="es">Mesas personalizadas, servicio de botella y atención premium.</span>
+          </div>
+
+          <div class="feature-point">
+            <strong>Music & Atmosphere</strong>
+            <span data-lang="en">Guest DJs, themed nights and custom event vibes.</span>
+            <span data-lang="es">DJs invitados, noches temáticas y ambiente personalizado.</span>
+          </div>
+        </div>
+
+        <a href="#reservations" class="btn-primary">
+          <span data-lang="en">Reserve Private Event</span>
+          <span data-lang="es">Reservar Evento Privado</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider"></div>
+
+  <section id="dinner-party">
+    <div class="feature-row reverse">
+      <div class="feature-image">
+        <img src="dinner-party.webp" alt="Dinner Party">
+      </div>
+
+      <div class="feature-content">
+        <p class="section-label">
+          <span data-lang="en">Elegant Nights</span>
+          <span data-lang="es">Noches Elegantes</span>
+        </p>
+
+        <h2>
+          <span data-lang="en">Dinner Party</span>
+          <span data-lang="es">Cena Privada</span>
+        </h2>
+
+        <p>
+          <span data-lang="en">A refined dinner party experience designed for groups who want a stylish start before the night turns into music, cocktails and celebration.</span>
+          <span data-lang="es">Una experiencia de cena elegante para grupos que buscan empezar la noche con estilo antes de pasar a música, cócteles y celebración.</span>
+        </p>
+
+        <div class="feature-points">
+          <div class="feature-point">
+            <strong>Group Nights</strong>
+            <span data-lang="en">Perfect for birthdays, friends, couples and special occasions.</span>
+            <span data-lang="es">Perfecto para cumpleaños, amigos, parejas y ocasiones especiales.</span>
+          </div>
+
+          <div class="feature-point">
+            <strong>Premium Mood</strong>
+            <span data-lang="en">Soft lighting, elegant tables and a cocktail-driven atmosphere.</span>
+            <span data-lang="es">Luz suave, mesas elegantes y ambiente inspirado en cócteles.</span>
+          </div>
+        </div>
+
+        <a href="#reservations" class="btn-outline">
+          <span data-lang="en">Reserve Dinner Party</span>
+          <span data-lang="es">Reservar Cena</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider"></div>
+
+  <div class="wave-divider"></div>
+
+<section id="birthday-party">
+  <div class="feature-row">
+    
+    <div class="feature-image">
+      <img src="birthday-party.webp" alt="Birthday Party">
+    </div>
+
+    <div class="feature-content">
+      <p class="section-label">
+        <span data-lang="en">Celebrate in Style</span>
+        <span data-lang="es">Celebra con Estilo</span>
+      </p>
+
+      <h2>
+        <span data-lang="en">Birthday Party</span>
+        <span data-lang="es">Fiesta de Cumpleaños</span>
+      </h2>
+
+      <p>
+        <span data-lang="en">
+          Turn your birthday into an unforgettable night at Oceánica Club with music, cocktails and a premium VIP atmosphere.
+        </span>
+        <span data-lang="es">
+          Convierte tu cumpleaños en una noche inolvidable en Oceánica Club con música, cócteles y un ambiente VIP premium.
+        </span>
+      </p>
+
+      <div class="feature-points">
+
+        <div class="feature-point">
+          <strong>VIP Experience</strong>
+          <span data-lang="en">Bottle service, reserved tables and personalized celebration setup.</span>
+          <span data-lang="es">Servicio de botella, mesas reservadas y decoración personalizada.</span>
+        </div>
+
+        <div class="feature-point">
+          <strong>Special Moments</strong>
+          <span data-lang="en">Perfect for groups looking for energy, music and unforgettable memories.</span>
+          <span data-lang="es">Perfecto para grupos que buscan energía, música y recuerdos únicos.</span>
+        </div>
+
+      </div>
+
+      <a href="#reservations" class="btn-primary">
+        <span data-lang="en">Reserve Birthday Party</span>
+        <span data-lang="es">Reservar Cumpleaños</span>
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+  <section id="reservations" class="reservation-section">
+    <p class="section-label">
+      <span data-lang="en">Book Your Experience</span>
+      <span data-lang="es">Reserva tu Experiencia</span>
+    </p>
+
+    <h2 class="section-title">
+      <span data-lang="en">Reservations</span>
+      <span data-lang="es">Reservaciones</span>
+    </h2>
+
+    <div class="section-line" style="margin-left:0;"></div>
+
+    <div class="reservation-wrap">
+      <div class="reservation-info">
+        <h3>
+          <span data-lang="en">Plan your next night at Oceánica</span>
+          <span data-lang="es">Organiza tu próxima noche en Oceánica</span>
+        </h3>
+
+        <p>
+          <span data-lang="en">Choose your date, guest number and event type. Your request will be sent directly through WhatsApp.</span>
+          <span data-lang="es">Elige tu fecha, número de personas y tipo de evento. Tu solicitud se enviará directamente por WhatsApp.</span>
+        </p>
+
+        <ul class="info-list">
+          <li>
+            <span data-lang="en">Hours</span><span data-lang="es">Horario</span>
+            <span>Thu–Sun · 21:00 – 06:00</span>
+          </li>
+
+          <li>
+            <span data-lang="en">Location</span><span data-lang="es">Ubicación</span>
+            <span><a href="https://maps.app.goo.gl/q5FMp6PjQhTA3iRB7" target="_blank" style="color:rgba(255,255,255,0.6); text-decoration:none;">El Puerto de Mazarrón, Murcia, Spain</a></span>
+          </li>
+
+          <li>
+            <span data-lang="en">Contact</span><span data-lang="es">Contacto</span>
+            <span><a href="https://wa.me/34680207924" target="_blank" style="color:rgba(255,255,255,0.6); text-decoration:none;">+34 680 207 924</a></span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="reservation-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label><span data-lang="en">Full Name</span><span data-lang="es">Nombre Completo</span></label>
+            <input type="text" id="res-name" placeholder="Your Name">
+          </div>
+
+          <div class="form-group">
+            <label><span data-lang="en">Phone</span><span data-lang="es">Teléfono</span></label>
+            <input type="tel" id="res-phone" placeholder="+34 600 000 000">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label><span data-lang="en">Date</span><span data-lang="es">Fecha</span></label>
+            <input type="date" id="res-date">
+          </div>
+
+          <div class="form-group">
+            <label><span data-lang="en">Guests</span><span data-lang="es">Personas</span></label>
+            <input type="number" id="res-guests" placeholder="Number of guests" min="1">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label><span data-lang="en">Reservation Type</span><span data-lang="es">Tipo de Reserva</span></label>
+          <select id="res-type">
+            <option>Weekly Event</option>
+            <option>Private Event</option>
+            <option>Dinner Party</option>
+            <option>VIP Lounge</option>
+            <option>Birthday Package</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label><span data-lang="en">Special Requests</span><span data-lang="es">Peticiones Especiales</span></label>
+          <textarea id="res-notes" data-placeholder-en="Tell us what you would like to reserve..." data-placeholder-es="Cuéntanos qué te gustaría reservar..."></textarea>
+        </div>
+
+        <a id="whatsapp-btn" class="btn-primary" style="width:100%; padding:16px; text-align:center;" href="#" onclick="return sendToWhatsApp()">
+          <span data-lang="en">Send via WhatsApp</span>
+          <span data-lang="es">Enviar por WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo-text">Oceánica Club</span>
+        <p>
+          <span data-lang="en">A premium cocktail bar and events venue. Where every night becomes a story worth telling.</span>
+          <span data-lang="es">Un bar de cócteles premium y espacio de eventos. Donde cada noche se convierte en una historia que vale la pena contar.</span>
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4><span data-lang="en">Navigate</span><span data-lang="es">Navegar</span></h4>
+        <ul>
+          <li><a href="index.html"><span data-lang="en">Home</span><span data-lang="es">Inicio</span></a></li>
+          <li><a href="event.html"><span data-lang="en">Events</span><span data-lang="es">Eventos</span></a></li>
+          <li><a href="menu.html"><span data-lang="en">Menu</span><span data-lang="es">Menú</span></a></li>
+          <li><a href="index.html#gallery"><span data-lang="en">Gallery</span><span data-lang="es">Galería</span></a></li>
+          <li><a href="#reservations"><span data-lang="en">Reserve</span><span data-lang="es">Reservar</span></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4><span data-lang="en">Hours</span><span data-lang="es">Horario</span></h4>
+        <ul>
+          <li><span data-lang="en">Thu – Sun</span><span data-lang="es">Jue – Dom</span></li>
+          <li>21:00 – 06:00</li>
+          <li><span data-lang="en">Mon–Wed: Closed</span><span data-lang="es">Lun–Mié: Cerrado</span></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/oceanicaclub_pm" target="_blank">Instagram</a></li>
+          <li><a href="https://wa.me/34680207924" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Oceánica Club · oceanica.bar</p>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = 'en';
+
+    function setLang(lang) {
+      currentLang = lang;
+
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.style.display = el.dataset.lang === lang ? (el.tagName === 'SPAN' ? 'inline' : 'block') : 'none';
+      });
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+      });
+
+      const nameInput = document.getElementById('res-name');
+      const notesInput = document.getElementById('res-notes');
+
+      if (nameInput) {
+        nameInput.placeholder = lang === 'en' ? 'Your Name' : 'Tu Nombre';
+      }
+
+      if (notesInput) {
+        notesInput.placeholder = lang === 'en'
+          ? notesInput.getAttribute('data-placeholder-en')
+          : notesInput.getAttribute('data-placeholder-es');
+      }
+      const guestsInput = document.getElementById('res-guests');
+
+if (guestsInput) {
+  guestsInput.placeholder = lang === 'en' ? 'Number of guests' : 'Número de personas';
+}
+    }
+
+    function toggleMenu() {
+      const menu = document.querySelector('.nav-links');
+      const burger = document.querySelector('.hamburger');
+      menu.classList.toggle('active');
+      burger.classList.toggle('active');
+    }
+
+    function sendToWhatsApp() {
+      const name = document.getElementById('res-name').value;
+      const phone = document.getElementById('res-phone').value;
+      const date = document.getElementById('res-date').value;
+      const guests = document.getElementById('res-guests').value;
+      const type = document.getElementById('res-type').value;
+      const notes = document.getElementById('res-notes').value;
+
+      if (!name || !phone || !date) {
+        alert(currentLang === 'en'
+          ? '⚠️ Please fill in your name, phone and date.'
+          : '⚠️ Por favor rellena tu nombre, teléfono y fecha.');
+        return false;
+      }
+
+      const line = '%0A';
+      const msg =
+        (currentLang === 'en'
+          ? '%F0%9F%8C%8A%20*New%20Event%20Reservation%20%E2%80%94%20Oce%C3%A1nica%20Club*'
+          : '%F0%9F%8C%8A%20*Nueva%20Reserva%20de%20Evento%20%E2%80%94%20Oce%C3%A1nica%20Club*') +
+        line + line +
+        (currentLang === 'en' ? '%F0%9F%91%A4%20*Name%3A*%20' : '%F0%9F%91%A4%20*Nombre%3A*%20') + encodeURIComponent(name) +
+        line + (currentLang === 'en' ? '%F0%9F%93%9E%20*Phone%3A*%20' : '%F0%9F%93%9E%20*Tel%C3%A9fono%3A*%20') + encodeURIComponent(phone) +
+        line + (currentLang === 'en' ? '%F0%9F%93%85%20*Date%3A*%20' : '%F0%9F%93%85%20*Fecha%3A*%20') + encodeURIComponent(date) +
+        line + (currentLang === 'en' ? '%F0%9F%91%A5%20*Guests%3A*%20' : '%F0%9F%91%A5%20*Personas%3A*%20') + encodeURIComponent(guests) +
+        line + (currentLang === 'en' ? '%F0%9F%8E%9F%20*Type%3A*%20' : '%F0%9F%8E%9F%20*Tipo%3A*%20') + encodeURIComponent(type) +
+        line + (currentLang === 'en' ? '%F0%9F%93%9D%20*Notes%3A*%20' : '%F0%9F%93%9D%20*Notas%3A*%20') + encodeURIComponent(notes || (currentLang === 'en' ? 'No special requests' : 'Sin peticiones especiales')) +
+        line + line +
+        '%F0%9F%94%97%20_oceanica.bar_';
+
+      document.getElementById('whatsapp-btn').href = 'https://wa.me/34680207924?text=' + msg;
+      document.getElementById('whatsapp-btn').target = '_blank';
+
+      return true;
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('active');
+        document.querySelector('.hamburger').classList.remove('active');
+      });
+    });
+
+    setLang('en');
+  </script>
+</body>
+</html>
