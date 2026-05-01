@@ -1,0 +1,71 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: ""
+public_folder: ""
+
+collections:
+  - name: "events"
+    label: "Events"
+    files:
+      - name: "events_data"
+        label: "Events Page"
+        file: "data/events.json"
+        fields:
+          - label: "Weekly Events"
+            name: "weeklyEvents"
+            widget: "list"
+            fields:
+              - { label: "Day", name: "day", widget: "string" }
+              - { label: "Date", name: "date", widget: "string", required: false }
+              - { label: "Title EN", name: "titleEn", widget: "string" }
+              - { label: "Title ES", name: "titleEs", widget: "string" }
+              - { label: "Description EN", name: "descEn", widget: "text" }
+              - { label: "Description ES", name: "descEs", widget: "text" }
+              - { label: "Image", name: "image", widget: "image" }
+
+          - label: "Sections"
+            name: "sections"
+            widget: "object"
+            fields:
+              - label: "Private Event"
+                name: "privateEvent"
+                widget: "object"
+                fields:
+                  - { label: "Title EN", name: "titleEn", widget: "string" }
+                  - { label: "Title ES", name: "titleEs", widget: "string" }
+                  - { label: "Image", name: "image", widget: "image" }
+
+              - label: "Dinner Party"
+                name: "dinnerParty"
+                widget: "object"
+                fields:
+                  - { label: "Title EN", name: "titleEn", widget: "string" }
+                  - { label: "Title ES", name: "titleEs", widget: "string" }
+                  - { label: "Image", name: "image", widget: "image" }
+
+              - label: "Birthday Party"
+                name: "birthdayParty"
+                widget: "object"
+                fields:
+                  - { label: "Title EN", name: "titleEn", widget: "string" }
+                  - { label: "Title ES", name: "titleEs", widget: "string" }
+                  - { label: "Image", name: "image", widget: "image" }
+
+  - name: "menu"
+    label: "Menu"
+    files:
+      - name: "menu_data"
+        label: "Menu Items"
+        file: "data/menu.json"
+        fields:
+          - label: "Cocktails"
+            name: "cocktails"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Price", name: "price", widget: "string" }
+              - { label: "Description EN", name: "descEn", widget: "text" }
+              - { label: "Description ES", name: "descEs", widget: "text" }
+              - { label: "Image", name: "image", widget: "image" }
