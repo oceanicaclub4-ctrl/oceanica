@@ -1230,15 +1230,9 @@
         </div>
 
         <div class="form-group">
-          <label><span data-lang="en">Reservation Type</span><span data-lang="es">Tipo de Reserva</span></label>
-          <select id="res-type">
-            <option>Weekly Event</option>
-            <option>Private Event</option>
-            <option>Dinner Party</option>
-            <option>VIP Lounge</option>
-            <option>Birthday Package</option>
-          </select>
-        </div>
+  <label><span data-lang="en">Reservation Type</span><span data-lang="es">Tipo de Reserva</span></label>
+  <select id="res-type"></select>
+</div>
 
         <div class="form-group">
           <label><span data-lang="en">Special Requests</span><span data-lang="es">Peticiones Especiales</span></label>
@@ -1298,89 +1292,123 @@
   </footer>
 
   <script>
-    let currentLang = 'en';
+  let currentLang = 'en';
 
-    function setLang(lang) {
-      currentLang = lang;
+  const reservationOptions = {
+    en: [
+      "VIP Lounge",
+      "Weekly Summer Events 2026",
+      "Private Event",
+      "Dinner Party",
+      "Birthday Package",
+      "Bachelor Party"
+    ],
+    es: [
+      "Zona VIP",
+      "Eventos Semanales Verano 2026",
+      "Evento Privado",
+      "Cena Privada",
+      "Paquete de Cumpleaños",
+      "Despedida de Soltero"
+    ]
+  };
 
-      document.querySelectorAll('[data-lang]').forEach(el => {
-        el.style.display = el.dataset.lang === lang ? (el.tagName === 'SPAN' ? 'inline' : 'block') : 'none';
-      });
+  function updateReservationOptions(lang) {
+    const select = document.getElementById("res-type");
+    const oldValue = select.value;
+    select.innerHTML = "";
 
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
-      });
+    reservationOptions[lang].forEach(optionText => {
+      const option = document.createElement("option");
+      option.textContent = optionText;
+      option.value = optionText;
+      select.appendChild(option);
+    });
+  }
 
-      const nameInput = document.getElementById('res-name');
-      const notesInput = document.getElementById('res-notes');
+  function setLang(lang) {
+    currentLang = lang;
 
-      if (nameInput) {
-        nameInput.placeholder = lang === 'en' ? 'Your Name' : 'Tu Nombre';
-      }
-
-      if (notesInput) {
-        notesInput.placeholder = lang === 'en'
-          ? notesInput.getAttribute('data-placeholder-en')
-          : notesInput.getAttribute('data-placeholder-es');
-      }
-      const guestsInput = document.getElementById('res-guests');
-
-if (guestsInput) {
-  guestsInput.placeholder = lang === 'en' ? 'Number of guests' : 'Número de personas';
-}
-    }
-
-    function toggleMenu() {
-      const menu = document.querySelector('.nav-links');
-      const burger = document.querySelector('.hamburger');
-      menu.classList.toggle('active');
-      burger.classList.toggle('active');
-    }
-
-    function sendToWhatsApp() {
-      const name = document.getElementById('res-name').value;
-      const phone = document.getElementById('res-phone').value;
-      const date = document.getElementById('res-date').value;
-      const guests = document.getElementById('res-guests').value;
-      const type = document.getElementById('res-type').value;
-      const notes = document.getElementById('res-notes').value;
-
-      if (!name || !phone || !date) {
-        alert(currentLang === 'en'
-          ? '⚠️ Please fill in your name, phone and date.'
-          : '⚠️ Por favor rellena tu nombre, teléfono y fecha.');
-        return false;
-      }
-
-      const line = '%0A';
-      const msg =
-        (currentLang === 'en'
-          ? '%F0%9F%8C%8A%20*New%20Event%20Reservation%20%E2%80%94%20Oce%C3%A1nica%20Club*'
-          : '%F0%9F%8C%8A%20*Nueva%20Reserva%20de%20Evento%20%E2%80%94%20Oce%C3%A1nica%20Club*') +
-        line + line +
-        (currentLang === 'en' ? '%F0%9F%91%A4%20*Name%3A*%20' : '%F0%9F%91%A4%20*Nombre%3A*%20') + encodeURIComponent(name) +
-        line + (currentLang === 'en' ? '%F0%9F%93%9E%20*Phone%3A*%20' : '%F0%9F%93%9E%20*Tel%C3%A9fono%3A*%20') + encodeURIComponent(phone) +
-        line + (currentLang === 'en' ? '%F0%9F%93%85%20*Date%3A*%20' : '%F0%9F%93%85%20*Fecha%3A*%20') + encodeURIComponent(date) +
-        line + (currentLang === 'en' ? '%F0%9F%91%A5%20*Guests%3A*%20' : '%F0%9F%91%A5%20*Personas%3A*%20') + encodeURIComponent(guests) +
-        line + (currentLang === 'en' ? '%F0%9F%8E%9F%20*Type%3A*%20' : '%F0%9F%8E%9F%20*Tipo%3A*%20') + encodeURIComponent(type) +
-        line + (currentLang === 'en' ? '%F0%9F%93%9D%20*Notes%3A*%20' : '%F0%9F%93%9D%20*Notas%3A*%20') + encodeURIComponent(notes || (currentLang === 'en' ? 'No special requests' : 'Sin peticiones especiales')) +
-        line + line +
-        '%F0%9F%94%97%20_oceanica.bar_';
-
-      document.getElementById('whatsapp-btn').href = 'https://wa.me/34680207924?text=' + msg;
-      document.getElementById('whatsapp-btn').target = '_blank';
-
-      return true;
-    }
-
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelector('.nav-links').classList.remove('active');
-        document.querySelector('.hamburger').classList.remove('active');
-      });
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      el.style.display = el.dataset.lang === lang ? (el.tagName === 'SPAN' ? 'inline' : 'block') : 'none';
     });
 
-    setLang('en');
-  </script>
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+    });
+
+    const nameInput = document.getElementById('res-name');
+    const notesInput = document.getElementById('res-notes');
+    const guestsInput = document.getElementById('res-guests');
+
+    if (nameInput) {
+      nameInput.placeholder = lang === 'en' ? 'Your Name' : 'Tu Nombre';
+    }
+
+    if (notesInput) {
+      notesInput.placeholder = lang === 'en'
+        ? notesInput.getAttribute('data-placeholder-en')
+        : notesInput.getAttribute('data-placeholder-es');
+    }
+
+    if (guestsInput) {
+      guestsInput.placeholder = lang === 'en' ? 'Number of guests' : 'Número de personas';
+    }
+
+    updateReservationOptions(lang);
+  }
+
+  function toggleMenu() {
+    const menu = document.querySelector('.nav-links');
+    const burger = document.querySelector('.hamburger');
+    menu.classList.toggle('active');
+    burger.classList.toggle('active');
+  }
+
+  function sendToWhatsApp() {
+    const name = document.getElementById('res-name').value;
+    const phone = document.getElementById('res-phone').value;
+    const date = document.getElementById('res-date').value;
+    const guests = document.getElementById('res-guests').value;
+    const type = document.getElementById('res-type').value;
+    const notes = document.getElementById('res-notes').value;
+
+    if (!name || !phone || !date) {
+      alert(currentLang === 'en'
+        ? '⚠️ Please fill in your name, phone and date.'
+        : '⚠️ Por favor rellena tu nombre, teléfono y fecha.');
+      return false;
+    }
+
+    const line = '%0A';
+    const msg =
+      (currentLang === 'en'
+        ? '%F0%9F%8C%8A%20*New%20Event%20Reservation%20%E2%80%94%20Oce%C3%A1nica%20Club*'
+        : '%F0%9F%8C%8A%20*Nueva%20Reserva%20de%20Evento%20%E2%80%94%20Oce%C3%A1nica%20Club*') +
+      line + line +
+      (currentLang === 'en' ? '%F0%9F%91%A4%20*Name%3A*%20' : '%F0%9F%91%A4%20*Nombre%3A*%20') + encodeURIComponent(name) +
+      line + (currentLang === 'en' ? '%F0%9F%93%9E%20*Phone%3A*%20' : '%F0%9F%93%9E%20*Tel%C3%A9fono%3A*%20') + encodeURIComponent(phone) +
+      line + (currentLang === 'en' ? '%F0%9F%93%85%20*Date%3A*%20' : '%F0%9F%93%85%20*Fecha%3A*%20') + encodeURIComponent(date) +
+      line + (currentLang === 'en' ? '%F0%9F%91%A5%20*Guests%3A*%20' : '%F0%9F%91%A5%20*Personas%3A*%20') + encodeURIComponent(guests) +
+      line + (currentLang === 'en' ? '%F0%9F%8E%9F%20*Type%3A*%20' : '%F0%9F%8E%9F%20*Tipo%3A*%20') + encodeURIComponent(type) +
+      line + (currentLang === 'en' ? '%F0%9F%93%9D%20*Notes%3A*%20' : '%F0%9F%93%9D%20*Notas%3A*%20') + encodeURIComponent(notes || (currentLang === 'en' ? 'No special requests' : 'Sin peticiones especiales')) +
+      line + line +
+      '%F0%9F%94%97%20_oceanica.bar_';
+
+    document.getElementById('whatsapp-btn').href = 'https://wa.me/34680207924?text=' + msg;
+    document.getElementById('whatsapp-btn').target = '_blank';
+
+    return true;
+  }
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.remove('active');
+      document.querySelector('.hamburger').classList.remove('active');
+    });
+  });
+
+  setLang('en');
+</script>
 </body>
 </html>
